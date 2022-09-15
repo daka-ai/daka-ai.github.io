@@ -686,7 +686,8 @@ iframe {
  *-----------------------------------*/
 .headshots {
     height: 85px; 
-    border-radius: 50%; }
+    border-radius: 50%;
+    padding-bottom: 10px; }
 .logo-daka {
     height: 75px; }
 .client-logos.negative-margin {
