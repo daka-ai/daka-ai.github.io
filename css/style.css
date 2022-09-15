@@ -684,6 +684,9 @@ iframe {
 /*-----------------------------------
  * CLIENT LOGOS
  *-----------------------------------*/
+.headshots {
+    height: 85px; 
+    border-radius: 50%; }
 .logo-daka {
     height: 75px; }
 .client-logos.negative-margin {
@@ -809,9 +812,9 @@ iframe {
  *-----------------------------------*/
 .pricing {
   text-align: center;
-  padding: 20px;
+  padding: 5px;
   border: 0;
-  border-radius: 15px;
+  border-radius: 5px;
   margin-bottom: 30px; }
   .pricing small {
     letter-spacing: 2px; }
@@ -820,11 +823,13 @@ iframe {
     font-family: "Product Sans", Helvetica, Arial, serif;
     font-weight: 700;
     margin: 10px 0 15px; }
+  .card-text {
+  text-align: left; }
   .card-title-first {
     font-size: 22px;
     font-family: "Product Sans", Helvetica, Arial, serif;
     font-weight: 700;
-    margin: 10px 0 0px; }
+    margin: 10px 0 10px; }
   .card-title-last {
     font-size: 22px;
     font-family: "Product Sans", Helvetica, Arial, serif;
