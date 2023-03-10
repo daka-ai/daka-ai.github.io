@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='utf-8'?>
+<utterances xmlns="http://daka-ai.com/chadl/2022-01/utterances.xsd">
+  <intents>
+    <intent name="tell-name">
+      <li>Hi. My name is $name.</li>
+      <li>My name is $name.</li>
+      <li>I'm $name.</li>
+    </intent>
+    <intent name="change-plan">
+      <li>I want to change my cell plan to save money.</li>
+    </intent>
+    <intent name="yes">
+      <li>Yeah.</li>
+      <li>Yes, please.</li>
+    </intent>
+    <intent name="no">
+      <li>No, I'm good.</li>
+      <li>Nope.</li>
+    </intent>
+    <intent name="give-customer-id">
+      <li>My ID is $customer-id.</li>
+    </intent>
+    <intent name="no-customer-id">
+      <li>I can't find the account number.</li>
+    </intent>
+    <intent name="give-phone-number">
+      <li>My cell is $customer-phone.</li>
+      <li>It's $customer-phone.</li>
+    </intent>
+    <intent name="give-customer-plan">
+      <li>I want to change to the $customer-plan plan.</li>
+    </intent>
+    <intent name="give-customer-pin">
+      <li>$customer-pin</li>
+    </intent>
+  </intents>
+  <states>
+    <state name="introduction">Hi. My name is Alice. I am a virtual agent. I can answer questions about your account, make changes to your plan and tell you about special offers. Who do I have the pleasure of speaking with today?</state>
+    <state name="compliment">Hi $name, what can I do for you today?</state>
+    <state name="request-customer-id">I can help you with that. Please enter your account number or cell number. Your account number is a 9 digit number.</state>
+    <state name="correct-customer-id">I'm unable to find customer ID $customer-id. Please make sure you have the correct number and enter it again.</state>
+    <state name="request-phone-number">It's ok. What is the cell phone associated with this account?</state>
+    <state name="correct-phone-number">I couldn't find the number $customer-phone. Make sure to enter your phone number in the format AAA-XXX-XXXX, where AAA is the 3-digit area code and XXX-XXXX the 7-digit number.</state>
+    <state name="report-customer-plan">Thank you. You currently have the $customer-plan plan for $plan-monthly-fee per month. I understand that you want to reduce your expenses. We have a Basic plan that is $35 per month. What change would you like to make?</state>
+    <state name="request-customer-pin">To confirm the change, please say or type your 4-digit secret access code.</state>
+    <state name="correct-customer-pin">It seems your secret access code is incorrect, please try again.</state>
+    <state name="update-customer-plan-success">Thank you. I changed your plan to the $customer-plan plan. Can I help with anything else today?</state>
+    <state name="make-offer">Would you be interested in trying US calling? It is free for the first 3 months!</state>
+    <state name="goodbye">No problem. Have a great day and feel free to hang up when you are ready.</state>
+  </states>
+  <events>
+    <event name="intent-not-found">I'm sorry, I didn't understand that. Please rephrase.</event>
+    <event name="are-you-there">Are you still here? If you need more time that's fine, I'll wait.</event>
+  </events>
+</utterances>

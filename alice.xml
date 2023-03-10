@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<agent xmlns="http://daka-ai.com/chadl/2022-01/agent.xsd">
+  <include href="alice_utterances.xml" />
+  <parameters>
+    <parameter name="server" value="http://localhost:8008" />
+    <parameter name="name" persistent="true" />
+  </parameters>
+  <intents>
+    <intent name="tell-name" />
+    <intent name="change-plan" />
+    <intent name="give-customer-id" />
+    <intent name="no-customer-id" />
+    <intent name="give-phone-number" />
+    <intent name="give-customer-plan" />
+    <intent name="give-customer-pin" />
+    <intent name="success" />
+    <intent name="error" />
+    <intent name="yes" />
+    <intent name="no" />
+  </intents>
+  <states start="welcome">
+    <state name="welcome">
+      <transition if="$name != None" state="compliment" />
+      <transition state="introduction" />
+    </state>
+    <state name="introduction">
+      <transition intent="tell-name" state="compliment" />
+    </state>
+    <state name="compliment">
+      <transition state="prompt" />
+    </state>
+    <state name="prompt">
+      <transition intent="change-plan" state="request-customer-id" />
+    </state>
+    <state name="request-customer-id">
+      <transition state="collect-customer-id" />
+    </state>
+    <state name="collect-customer-id">
+      <transition intent="give-customer-id" state="query-customer-by-id" />
+      <transition intent="no-customer-id" state="request-phone-number" />
+    </state>
+    <state name="request-phone-number">
+      <transition intent="give-phone-number" state="query-customer-by-phone" />
+    </state>
+    <state name="query-customer-by-id">
+      <call name="query">
+        <parameter name="path" value="customers.csv" />
+        <parameter name="customer-id" />
+      </call>
+      <transition intent="success" state="report-customer-plan" />
+      <transition intent="error" state="correct-customer-id" />
+    </state>
+    <state name="correct-customer-id">
+      <transition state="collect-customer-id" />
+    </state>
+    <state name="query-customer-by-phone">
+      <call name="query">
+        <parameter name="path" value="customers.csv" />
+        <parameter name="customer-phone" />
+      </call>
+      <transition intent="success" state="report-customer-plan" />
+      <transition intent="error" state="correct-phone-number" />
+    </state>
+    <state name="correct-phone-number">
+      <transition intent="give-phone-number" state="query-customer-by-phone" />
+    </state>
+    <state name="report-customer-plan">
+      <transition intent="give-customer-plan" state="request-customer-pin" />
+    </state>
+    <state name="request-customer-pin">
+      <transition intent="give-customer-pin" state="update-customer-plan" />
+    </state>
+    <state name="update-customer-plan">
+      <call name="update">
+        <parameter name="path" value="customers.csv" />
+        <parameter name="customer-id" />
+        <parameter name="customer-pin" />
+        <parameter name="customer-plan" />
+      </call>
+      <transition intent="success" state="update-customer-plan-success" />
+      <transition intent="error" state="correct-customer-pin" />
+    </state>
+    <state name="correct-customer-pin">
+      <transition intent="give-customer-pin" state="update-customer-plan" />
+    </state>
+    <state name="update-customer-plan-success">
+      <transition intent="no" state="make-offer" />
+    </state>
+    <state name="make-offer">
+      <transition intent="no" state="goodbye" />
+    </state>
+    <state name="goodbye" />
+  </states>
+  <events>
+    <event name="intent-not-found" type="fall-through" default="true"/>
+    <event name="are-you-there" type="timeout" default="true">
+      <parameter name="duration" value="60"/>
+    </event>
+  </events>
+</agent>
